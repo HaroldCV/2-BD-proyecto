@@ -1,0 +1,102 @@
+.center-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .form-container {
+    width: 850px;
+    height: 450px;
+    margin: 0 30%;
+    padding: 150px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .header_gr_text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+  }
+  
+  .header_gr_text h1 {
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+.boton_p1{
+    border: 0;
+    background-image: linear-gradient(
+     150deg,
+     #4556d3,
+     #67f4f4
+    );
+    border-radius: 8px; 
+    color:#fff;
+    font-size: 18px;
+    padding: 4px;
+    cursor: pointer;
+    transition: .3s;
+    display:flex;
+    margin-top: 10.5%;
+}
+
+.boton_p1 span{
+    background-color: #111;
+    padding: 20px 240px;
+    border-radius:6px;
+    transition: .3s;
+}
+
+.boton_p1:hover span{
+    background: none;
+}
+
+.boton_p1:active{
+    transform: scale(0.9);
+}
+
+.spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    text-align: center;
+  }
+  
+  .spinner > div {
+    width: 18px;
+    height: 18px;
+    background-color: #333;
+    border-radius: 100%;
+    display: inline-block;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  }
+  
+  .spinner .bounce1 {
+    animation-delay: -0.32s;
+  }
+  
+  .spinner .bounce2 {
+    animation-delay: -0.16s;
+  }
+  
+  @keyframes sk-bouncedelay {
+    0%, 80%, 100% { 
+      transform: scale(0);
+    } 
+    40% { 
+      transform: scale(1.0);
+    }
+  }
+
+  
+
+  
