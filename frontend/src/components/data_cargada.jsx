@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Form, Input, Button, Table, Row, Col } from 'antd';
 import "./data_cargada.css"
+import Swal from 'sweetalert2';
 function DataCargada() {
   const { docsToRead, c } = useParams();
   const [query, setQuery] = useState('');
@@ -21,19 +22,30 @@ function DataCargada() {
         },
         body: JSON.stringify({ query, topk: topK }),
       });
-
+  
       if (response.ok) {
         const { resultado, postgres_resultado, python_time, postgres_time } = await response.json();
         setResultado(resultado);
         setPostgresResultado(postgres_resultado);
         setPythonTime(python_time);
         setPostgresTime(postgres_time);
+  
+        Swal.fire({
+          icon: 'success',
+          title: 'Consulta exitosa',
+          text: 'Los datos se enviaron correctamente.',
+        });
       } else {
         throw new Error('Error al enviar los datos al servidor.');
       }
     } catch (error) {
       console.error(error);
-      // Manejar el error en caso de que ocurra
+  
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Ocurrió un error al enviar los datos al servidor.',
+      });
     }
   };
 
