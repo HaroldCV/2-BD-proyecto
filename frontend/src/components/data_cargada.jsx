@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
+import { Form, Input, Button, Table, Row, Col } from 'antd';
+import "./data_cargada.css"
 function DataCargada() {
   const { docsToRead, c } = useParams();
   const [query, setQuery] = useState('');
@@ -11,9 +12,7 @@ function DataCargada() {
   const [pythonTime, setPythonTime] = useState(0);
   const [postgresTime, setPostgresTime] = useState(0);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
+  const handleSubmit = async (values) => {
     try {
       const response = await fetch(`http://localhost:5000/${docsToRead}/${c}`, {
         method: 'POST',
@@ -54,70 +53,99 @@ function DataCargada() {
   const handleChangeTopK = (event) => {
     setTopK(event.target.value);
   };
-
+  const columns = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+      width: 50,
+      align: 'center',
+      sorter: (a, b) => a.id - b.id,
+    },
+    {
+      title: 'Title',
+      dataIndex: 'title',
+      key: 'title',
+      width: 200,
+      align: 'center',
+      ellipsis: true,
+    },
+    {
+      title: 'Score',
+      dataIndex: 'score',
+      key: 'score',
+      width: 50,
+      align: 'center',
+      render: (score) => score.toFixed(2),
+    },
+  ];
   return (
     <div className="p-5 text-center" style={{ marginTop: '58px' }}>
-      <form onSubmit={handleSubmit}>
-        <h1 className="mb-3">Data Cargada</h1>
-        <div className="form-floating mb-3">
-          <input
+      <Form onFinish={handleSubmit}>
+        <h1 className="gradient__text">Data Cargada</h1>
+        <Form.Item className="mb-3" label={<span className="label-text">Consulta</span>}>
+          <Input
             type="text"
-            className="form-control"
-            id="query"
-            name="query"
             placeholder="Ingrese la consulta"
             value={query}
             onChange={handleChangeQuery}
+            className="custom-input"
           />
-          <label htmlFor="query">Consulta</label>
-        </div>
-        <div className="form-floating mb-3">
-          <input
+        </Form.Item>
+        <Form.Item className="mb-3" label={<span className="label-text">Valor de topk</span>}>
+          <Input
             type="text"
-            className="form-control"
-            id="topk"
-            name="topk"
             placeholder="Ingrese el valor de topk"
             value={topK}
             onChange={handleChangeTopK}
+            className="custom-input"
           />
-          <label htmlFor="topk">Valor de topk</label>
+        </Form.Item>
+        <div className="flex justify-center">
+          <Button type="primary" htmlType="submit" className="mr-2">
+            Enviar
+          </Button>
+          <Button type="default" onClick={handleReset} className="mr-2">
+            Reset
+          </Button>
+          <Button onClick={handleGoBack}>Volver</Button>
         </div>
-        <div>
-          <input type="submit" className="btn btn-primary me-2" value="Enviar" />
-          <button type="button" className="btn btn-secondary me-2" onClick={handleReset}>Reset</button>
-          <button type="button" className="btn btn-secondary" onClick={handleGoBack}>Volver</button>
-        </div>
-      </form>
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <h2>Top K Python</h2>
-            <p> Time: {pythonTime} ms</p>
-            {resultado.map((value) => (
-              <p key={value.id}>
-                ID: {value.id} <br />
-                Title: {value.title} <br />
-                Score: {value.score}
-              </p>
-            ))}
+      </Form>
+      <Row>
+        <Col span={12}>
+          <div className="bg-gray-200 border border-gray-400 rounded p-4 mt-4">
+            <h2 className="gradient__text">Top K Python</h2>
+            <p className="text-custom-color">Time: {pythonTime} ms</p>
+
+            <Table
+              dataSource={resultado}
+              locale={{ emptyText: 'No hay datos disponibles' }}
+              pagination={false}
+              bordered
+              rowClassName={() => 'table-row'}
+              rowStyle={{ height: '50px' }}
+              columns={columns}
+            />
           </div>
-          <div className="col">
-            <h2>Top K PostgreSQL</h2>
-            <p> Time: {postgresTime} ms</p>
-            {postgresResultado.map((value) => (
-              <p key={value.id}>
-                ID: {value.id} <br />
-                Title: {value.title} <br />
-                Score: {value.score}
-              </p>
-            ))}
+        </Col>
+        <Col span={12}>
+          <div className="bg-gray-200 border border-gray-400 rounded p-4 mt-4">
+            <h2 className="gradient__text">Top K PostgreSQL</h2>
+            <p className="text-custom-color">Time: {postgresTime} ms</p>
+            <Table
+              dataSource={postgresResultado}
+              locale={{ emptyText: 'No hay datos disponibles' }}
+              pagination={false}
+              bordered
+              rowClassName={() => 'table-row'}
+              rowStyle={{ height: '50px' }}
+              columns={columns}
+            />
           </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </div>
   );
-  
 }
 
 export default DataCargada;
