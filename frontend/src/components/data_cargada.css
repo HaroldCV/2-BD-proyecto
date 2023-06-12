@@ -1,0 +1,38 @@
+.header_gr_text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+  }
+  
+  .header_gr_text h1,h2 {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .custom-input {
+    /* Estilos personalizados para el campo de entrada */
+    background: linear-gradient(89.97deg, #6a23c1 1.84%, #67f4eb 102.67%);
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+  }
+
+  
+  
+  .label-text {
+    color: #67f4eb ;
+    font-family: Arial, sans-serif;
+  }
+
+  .text-custom-color {
+    color: #67f4eb;
+  }
+  
+  
+  
+  
+  
+
+  
