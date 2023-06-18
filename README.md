@@ -125,3 +125,9 @@ def load(self, MAX):
 ### Análisis comparativo
 
 ### Screenshots de la GUI
+
+![](Captura1.JPG)
+
+![](Captura2.JPG)
+
+![](Captura3.jpeg)
