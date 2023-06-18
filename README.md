@@ -51,7 +51,7 @@ Proyecto de Base de Datos 2: Recuperación de Documentos de Texto
 
 arXiv es un archivo en línea para las prepublicaciones de artículos científicos en el campo de las matemáticas, física, ciencias de la computación y biología cuantitativa.
 
-Este conjunto de datos es un espejo de la data original de ArXiv. Debido a que el conjunto de datos completo es bastante grande (1,1 TB y sigue creciendo), este conjunto de datos solo proporciona un archivo de metadatos en formato json. Este archivo contiene una entrada para cada papel, que contiene:
+Este conjunto de datos es un espejo de la data original de ArXiv. Debido a que el conjunto de datos completo es bastante grande, este conjunto de datos solo proporciona un archivo de metadatos en formato json. Este archivo contiene una entrada para cada papel, que contiene:
 
 * **id**: ArXiv ID 
 * **submitter**: Quién envió el papel
@@ -66,8 +66,9 @@ Este conjunto de datos es un espejo de la data original de ArXiv. Debido a que e
 
 ## Backend
 
-### Construcción del índice invertido
+### Índice invertido
 
+Es un método para estructurar la información más importante de un texto completo. La composición se da mediante un documento el cual tiene términos con una determinada frecuencia. En el caso del proyecto la información de la base de datos es organizada para retornar datos de una forma rápida y óptima. La consulta enviada también se procesa y organiza de la misma manera, posteriormente se genera un score de similitud con todos los documentos de la base de datos antes descritos. Finalmente se devuelven los documentos con mayor score los cuales se consideran más importantes.
 
 
 ### Manejo de memoria secundaria
@@ -124,6 +125,15 @@ def load(self, MAX):
 
 ### Análisis comparativo
 
+El análisis comparativo entre Python y PostgreSQL se realizó sobre datos en cantidades de 10 000 , 25 000 , 50 000 , 150 000 , 200 000 , 250 000 y 500 000. 
+Se obtuvo el siguiente resultado :
+
+![](Captura4.JPG)
+
+Se puede identificar que, en la cantidad de 150 000 datos , ocurre un punto de inflexión entre los dos algoritmos. Nuestra implementación de índice invertido
+tiene una mejor eficacia en datos menores a 150 000 y empeora en datos mayores a estos. Caso contrario con lo que ocurre en PostgreSQL.
+
+
 ### Screenshots de la GUI
 
 ![](Captura1.JPG)
@@ -131,3 +141,5 @@ def load(self, MAX):
 ![](Captura2.JPG)
 
 ![](Captura3.jpeg)
+
+Link del Video : https://drive.google.com/file/d/1tAId04mZmeFhxze307r_pmPvVHXQKgEI/view?usp=sharing
